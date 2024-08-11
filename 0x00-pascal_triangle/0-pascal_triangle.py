@@ -18,5 +18,6 @@ def pascal_triangle(n):
             if col == 0 or col == li:
                 pascal[li].append(1)
             else:
-                pascal[li].append(pascal[li - 1][col - 1] + pascal[li - 1][col])
+                pascal[li].append(pascal[li - 1][
+                    col - 1] + pascal[li - 1][col])
     return pascal
