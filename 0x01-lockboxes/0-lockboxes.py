@@ -1,65 +1,33 @@
 #!/usr/bin/python3
-"""Solves the lock boxes puzzle """
+"""
+Module to determine if all boxes can be unlocked.
+"""
 
 
-def look_next_opened_box(opened_boxes):
-    """Looks for the next opened box
-    Args:
-    opened_boxes (dict): Dictionary which contains boxes already opened
-    Returns:
-    list: List with the keys contained in the opened box
+from typing import List
+
+
+def canUnlockAll(boxes: List[List[int]]) -> bool:
     """
-    for index, box in opened_boxes.items():
-        if box.get('status') == 'opened':
-            box['status'] = 'opened/checked'
-            return box.get('keys')
-        return None
+    Determines if all boxes can be unlocked.
 
-
-def canUnlockAll(boxes):
-    """Check if all boxes can be opened
     Args:
-    boxes (list): List which contain all the boxes with the keys
+    boxes (List[List[int]]): A list of lists
+    where each sublist represents the keys in a box.
+
     Returns:
-    bool: True if all boxes can be opened, otherwise, False
+    bool: True if all boxes can be unlocked, otherwise False.
     """
-    if len(boxes) <= 1 or boxes == [[]]:
-        return True
+    queue = [0]
+    unlocked_boxes = set([0])
 
-    aux = {}
-    while True:
-        if len(aux) == 0:
-            aux[0] = {
-                    'status': 'opened',
-                    'keys': boxes[0],
-                    }
-            keys = look_next_opened_box(aux)
-            if keys:
-                for key in keys:
-                    try:
-                        if aux.get(key) and aux.get(
-                                key).get('status') \ == 'opened/checked':
-                                    continue
-                                aux[key] = {
-                                        'status': 'opened',
-                                        'keys': boxes[key]
-                                        }
-                    except (KeyError, IndexError):
-                        continue
-                    elif 'opened' in [box.get('status') for box in aux.values()]:
-                        continue
-                    elif len(aux) == len(boxes):
-                        break
-                    else:
-                        return False
-                    
-                    return len(aux) == len(boxes)
+    # Process the queue
+    while queue:
+        current_box = queue.pop(0)
+        # Iterate through the keys in the current box
+        for key in boxes[current_box]:
+            if key not in unlocked_boxes and key < len(boxes):
+                unlocked_boxes.add(key)
+                queue.append(key)
 
-
-def main():
-    """Entry point"""
-    canUnlockAll([[]])
-
-
-if __name__ == '__main__':
-    main()
+    return len(unlocked_boxes) == len(boxes)
