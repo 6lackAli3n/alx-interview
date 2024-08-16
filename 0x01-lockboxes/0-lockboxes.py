@@ -55,6 +55,7 @@ def canUnlockAll(boxes):
                     
                     return len(aux) == len(boxes)
 
+
 def main():
     """Entry point"""
     canUnlockAll([[]])
