@@ -1,13 +1,15 @@
 #!/usr/bin/python3
+"""0. Prime Game - Maria and Ben are playing a game"""
+
+
 def isWinner(x, nums):
     """Determine the winner of the Prime Game"""
     if x < 1 or not nums:
         return None
 
-    # Find the maximum value of n in nums to compute primes up to this limit
     max_num = max(nums)
 
-    # Step 1: Sieve of Eratosthenes to find all prime numbers up to max_num
+    # Step 1: Sieve of Eratosthenes to find all prime numbers
     sieve = [True] * (max_num + 1)
     sieve[0] = sieve[1] = False  # 0 and 1 are not primes
 
@@ -26,7 +28,7 @@ def isWinner(x, nums):
     ben_wins = 0
 
     for n in nums:
-        # If the count of primes up to n is odd, Maria wins, otherwise Ben wins
+        # If the count of primes up to n is odd, Maria wins
         if prime_count[n] % 2 == 1:
             maria_wins += 1
         else:
