@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
 Change-making algorithm: Determine the fewest
 number of coins needed
