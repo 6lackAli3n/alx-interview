@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 Change-making algorithm: Determine the fewest
 number of coins needed
@@ -8,24 +9,18 @@ to meet a given amount total.
 
 def makeChange(coins, total):
     """
-    Returns the fewest number of coin
-    needed to meet the total.
+    fewest number of coins needed to meet total
     """
+    if not coins or coins is None:
+        return -1
     if total <= 0:
         return 0
-
-    coins.sort(reverse=True)
-    num_coins = 0
-    remaining_total = total
-
+    change = 0
+    coins = sorted(coins)[::-1]
     for coin in coins:
-        if remaining_total <= 0:
-            break
-        count = remaining_total // coin
-        num_coins += count
-        remaining_total -= count * coin
-
-        if remaining_total == 0:
-            return num_coins
-        else:
-            return -1
+    while coin <= total:
+    total -= coin
+    change += 1
+    if (total == 0):
+        return change
+    return -1
